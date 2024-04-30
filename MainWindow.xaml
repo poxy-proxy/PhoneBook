@@ -1,0 +1,30 @@
+﻿<Window x:Class="PhoneBook.MainWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+ 
+    Title="Телефонный справочник"
+    Height="600"
+    Width="800">
+
+    <Grid>
+
+        <DataGrid x:Name="tablePhoneBook" AutoGenerateColumns="False" ItemsSource="{Binding Abonents}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" />
+                <DataGridTextColumn Header="Улица" Binding="{Binding StreetName}" />
+                <DataGridTextColumn Header="Дом" Binding="{Binding HouseNumber}" />
+                <DataGridTextColumn Header="Домашний" Binding="{Binding HomePhoneNumber}" />
+                <DataGridTextColumn Header="Рабочий" Binding="{Binding WorkPhoneNumber}" />
+                <DataGridTextColumn Header="Мобильный" Binding="{Binding MobilePhoneNumber}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+            <Button Content="Поиск" Command="{Binding SearchCommand}" />
+            <Button Content="Выгрузить CSV" Command="{Binding ExportCsvCommand}" />
+            <Button Content="Улицы" Command="{Binding ShowStreetsCommand}" />
+        </StackPanel>
+    </Grid>
+    
+</Window>
+    
