@@ -16,6 +16,6 @@
 
         <Button x:Name="searchButton" Content="Найти" Grid.Row="1" Margin="10" />
 
-       
+        <Button x:Name="resetButton" Content="Сброс" Grid.Row="1" Margin="10,54,10,-34" Click="resetButton_Click" />
     </Grid>
 </Window>

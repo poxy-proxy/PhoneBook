@@ -31,5 +31,11 @@ namespace PhoneBook
         {
             _viewModel.SearchText = searchTextBox.Text;
         }
+
+        private void resetButton_Click(object sender, RoutedEventArgs e)
+        {
+            searchTextBox.Text = "";
+            _viewModel.SearchCommandUpdate.Execute(sender);
+        }
     }
 }

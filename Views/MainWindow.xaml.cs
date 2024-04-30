@@ -32,47 +32,7 @@ namespace PhoneBook
             
         }
 
-        private void ExportCsvCommand_Executed(object sender, RoutedEventArgs e)
-        {
-            // 1. Подготовка данных для экспорта
-            var data = _viewModel.Abonents.Select(abonent => new
-            {
-                FullName = abonent.FullName,
-                StreetName = abonent.StreetName,
-                HouseNumber = abonent.HouseNumber,
-                HomePhoneNumber = abonent.HomePhoneNumber,
-                WorkPhoneNumber = abonent.WorkPhoneNumber,
-                MobilePhoneNumber = abonent.MobilePhoneNumber
-            }).ToList();
-
-            // 2. Создание объекта StringBuilder для хранения CSV-строк
-            var csvBuilder = new StringBuilder();
-
-            // 3. Добавление заголовков столбцов
-            csvBuilder.AppendLine("ФИО,Улица,Дом,Домашний,Рабочий,Мобильный");
-
-            // 4. Добавление строк данных
-            foreach (var row in data)
-            {
-                csvBuilder.AppendLine($"{row.FullName},{row.StreetName},{row.HouseNumber},{row.HomePhoneNumber},{row.WorkPhoneNumber},{row.MobilePhoneNumber}");
-            }
-
-            // 5. Сохранение CSV-строки в файл
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
-            saveFileDialog.DefaultExt = ".csv";
-            saveFileDialog.FileName = "abonents.csv";
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                using (var stream = new StreamWriter(saveFileDialog.FileName))
-                {
-                    stream.Write(csvBuilder.ToString());
-                }
-
-                MessageBox.Show("Данные успешно экспортированы в CSV-файл.", "Экспорт CSV", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+      
 
         private void SearchCommand_Executed(object sender, RoutedEventArgs e)
         {

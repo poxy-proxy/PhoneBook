@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
+using System.Windows.Data;
 
 namespace PhoneBook.ViewModels
 {
@@ -27,8 +28,8 @@ namespace PhoneBook.ViewModels
 
         public ObservableCollection<AbonentViewModel> Abonents
         {
-            get => _abonents;
-            set => SetProperty(ref _abonents, value);
+            get ;
+            set ;
         }
 
         public string SearchNumber
@@ -98,8 +99,9 @@ namespace PhoneBook.ViewModels
                 {
                     _filteredAbonents.Add(fa);
                 }
-                //FilteredAbonentsUpdated = new EventHandler().Invoke(this, _filteredAbonents);
-                FilteredAbonentsUpdated(this, _filteredAbonents);
+                Abonents = _filteredAbonents;
+               
+                FilteredAbonentsUpdated(this, Abonents);
               
             }
         }
@@ -141,15 +143,6 @@ namespace PhoneBook.ViewModels
 
         private void SearchAbonents()
         {
-            //var filteredAbonents = GetAbonents()
-            //    //.Include(a => a.Address)
-            //    //.Include(a => a.PhoneNumbers)
-            //    .Where(a => a.PhoneNumbers.Any(p => p.Number.Contains(SearchNumber)))
-            //    .ToList();
-
-            //Abonents = new ObservableCollection<AbonentViewModel>(
-            //    filteredAbonents.Select(a => new AbonentViewModel(a))
-            //);
             new SearchNumberWindow(_context,this).Show();
         }
 
@@ -159,16 +152,10 @@ namespace PhoneBook.ViewModels
         {
 
             // 1. Подготовка данных для экспорта
-            var _viewModel = new MainWindowViewModel(_context);
-            var data = _viewModel.Abonents.Select(abonent => new
-            {
-                FullName = abonent.FullName,
-                StreetName = abonent.StreetName,
-                HouseNumber = abonent.HouseNumber,
-                HomePhoneNumber = abonent.HomePhoneNumber,
-                WorkPhoneNumber = abonent.WorkPhoneNumber,
-                MobilePhoneNumber = abonent.MobilePhoneNumber
-            }).ToList();
+            var sortedView = CollectionViewSource.GetDefaultView(Abonents);
+            var data = sortedView.Cast<AbonentViewModel>().ToList();
+
+         
 
             // 2. Создание объекта StringBuilder для хранения CSV-строк
             var csvBuilder = new StringBuilder();
@@ -197,7 +184,7 @@ namespace PhoneBook.ViewModels
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
             saveFileDialog.DefaultExt = ".csv";
-            saveFileDialog.FileName = "report.csv";
+            saveFileDialog.FileName = "report_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".csv";
 
             if (saveFileDialog.ShowDialog() == true)
             {
