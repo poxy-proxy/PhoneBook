@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneBook" d:DataContext="{d:DesignInstance Type=local:StreetViewModel}"
         mc:Ignorable="d"
-        Title="StreetsWindow" Height="400" Width="600">
+        Title="Улицы" Height="400" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

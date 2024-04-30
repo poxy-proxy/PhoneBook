@@ -18,10 +18,7 @@ namespace PhoneBook.DB
             _connection.Open();
         }
 
-        public DbSet<Abonent> Abonents { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        public DbSet<Street> Streets { get; set; }
+
 
         public IEnumerable<T> Get<T>(string sql, object param = null)
         {
