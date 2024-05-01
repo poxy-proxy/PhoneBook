@@ -10,6 +10,7 @@ using PhoneBook.DB;
 using System.IO;
 using PhoneBook.ViewModels;
 using Microsoft.Win32;
+using System.Configuration;
 
 namespace PhoneBook
 {
@@ -23,7 +24,7 @@ namespace PhoneBook
 
         public MainWindow()
         {
-            _context = new DataContext("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"D:\\vs projects\\PhoneBook\\PhoneBookDB.mdf\";Integrated Security=True"); // Replace with your connection string
+            _context = new DataContext(ConfigurationManager.ConnectionStrings["PBDBConnection"].ConnectionString); 
             _viewModel = new MainWindowViewModel(_context);
             _viewModel.FilteredAbonentsUpdated += OnFilteredAbonentsUpdated;
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace PhoneBook
 
         private void OnFilteredAbonentsUpdated(object sender, ObservableCollection<AbonentViewModel> filteredAbonents)
         {
-            // Update the data source of your table control with 'filteredAbonents'
+          
             tablePhoneBook.ItemsSource = filteredAbonents;
          
         }

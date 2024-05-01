@@ -14,7 +14,7 @@ namespace PhoneBook.DB
 
         public DataContext(string connectionString)
         {
-            _connection = new SqlConnection(connectionString); // Replace SqlConnection with your provider
+            _connection = new SqlConnection(connectionString); 
             _connection.Open();
         }
 
